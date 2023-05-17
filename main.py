@@ -26,13 +26,13 @@ def transform_data(data:dict, state):
     return df[['domains', 'country', 'web_pages', 'name']]
 
 #loads transformed data into a sqlite database
-def load_data(df:pd.DataFrame):
+def load_data(df:pd.DataFrame, state):
     disk_engine = create_engine('sqlite:///my_lite_store.db')
-    df.to_sql('missouri', disk_engine, if_exists='replace')
+    df.to_sql(state , disk_engine, if_exists='replace')
 
 state = input('Pick a state ').capitalize()
 data = extract_data()
 df = transform_data(data, state)
-load_data(df)
+load_data(df, state)
 
 
